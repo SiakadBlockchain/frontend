@@ -2,30 +2,53 @@
 
 import { useEffect, useState } from 'react';
 import { Breadcrumbs } from '@/components/shared/breadcrumbs';
-import { Users, FileText, CheckCircle, GraduationCap, Plus, ArrowRight } from 'lucide-react';
+import { Users, CheckCircle, GraduationCap } from 'lucide-react';
 import Link from 'next/link';
-import { useDashboardData } from '@/hooks/use-dashboard-data';
 import { useAuth } from '@/hooks/use-auth';
+import { fetchStudiesByUniversity, fetchDiplomasByUniversity } from '@/lib/api'; // Pastikan path ke api.ts benar
 
 export default function UniversityDashboard() {
-  const { universityId } = useAuth()
-  const { loading, fetchUniversityData } = useDashboardData();
-  
+  const { universityId } = useAuth();
+  const [loading, setLoading] = useState(true);
   const [data, setData] = useState({
-    students: [],
-    diplomas: []
+    enrolledStudents: 0,
+    issuedDiplomas: 0,
+    verifiedDiplomas: 0
   });
 
   useEffect(() => {
-    if (universityId) {
-      fetchUniversityData(universityId).then(res => {
+    async function loadDashboardData() {
+      if (!universityId) return;
+      
+      setLoading(true);
+      try {
+        const [studiesRes, diplomasRes] = await Promise.all([
+          fetchStudiesByUniversity(universityId),
+          fetchDiplomasByUniversity(universityId)
+        ]);
+
+        // Logging untuk mempermudah debugging di console browser
+        console.log("Studies Response:", studiesRes);
+        console.log("Diplomas Response:", diplomasRes);
+
+        // Menangani berbagai kemungkinan struktur respons API
+        const studiesList = studiesRes.data || studiesRes.results || (Array.isArray(studiesRes) ? studiesRes : []);
+        const diplomasList = diplomasRes.data || diplomasRes.results || (Array.isArray(diplomasRes) ? diplomasRes : []);
+
         setData({
-          students: res.universityStudents,
-          diplomas: res.universityDiplomas
+          enrolledStudents: studiesRes.total || studiesList.length || 0,
+          issuedDiplomas: diplomasRes.total || diplomasList.length || 0,
+          verifiedDiplomas: diplomasList.filter((d: any) => d.status === 'valid').length
         });
-      });
+      } catch (error) {
+        console.error("Error fetching dashboard data:", error);
+      } finally {
+        setLoading(false);
+      }
     }
-  }, [universityId, fetchUniversityData]);
+
+    loadDashboardData();
+  }, [universityId]);
 
   if (loading) {
     return (
@@ -35,30 +58,27 @@ export default function UniversityDashboard() {
     );
   }
 
-  const enrolledCount = data.students.length;
-  const verifiedDiplomas = data.diplomas.filter((d: any) => d.status === 'valid'); // Sesuai status di API Python anda
-
   const stats = [
     {
-      label: 'Enrolled Students',
-      value: enrolledCount,
+      label: 'Total Student Studies',
+      value: data.enrolledStudents,
       icon: Users,
-      href: '/dashboard/university/students',
-      description: 'Active students',
+      href: '/dashboard/university/studies',
+      description: 'Active academic records',
     },
     {
-      label: 'Diplomas Issued',
-      value: data.diplomas.length,
+      label: 'Issued Diplomas',
+      value: data.issuedDiplomas,
       icon: GraduationCap,
       href: '/dashboard/university/diplomas',
-      description: 'Blockchain records',
+      description: 'Total blockchain records',
     },
     {
       label: 'Verified Diplomas',
-      value: verifiedDiplomas.length,
+      value: data.verifiedDiplomas,
       icon: CheckCircle,
       href: '/dashboard/university/diplomas',
-      description: 'On-chain validated',
+      description: 'On-chain validated (Valid)',
     },
   ];
 
@@ -67,7 +87,6 @@ export default function UniversityDashboard() {
       <Breadcrumbs />
 
       <div className="flex-1 p-6">
-        {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground">University Overview</h1>
           <p className="text-muted-foreground mt-2">

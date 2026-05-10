@@ -1,5 +1,5 @@
 // Authentication & User Types
-export type UserRole = 'validator' | 'admin' | 'university';
+export type UserRole = 'validator' | 'admin' | 'university' | 'student';
 
 export interface User {
   id: string;
@@ -51,6 +51,7 @@ export interface University {
   status: 'active' | 'inactive' | 'suspended';
   studentsCount: number;
   diplomasIssued: number;
+  public_key: string;
   createdAt: Date;
 }
 

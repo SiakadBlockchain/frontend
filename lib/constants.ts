@@ -15,6 +15,9 @@ import {
   AlertCircle,
   Clock,
   Lock,
+  User,
+  BookOpen,
+  ShieldCheck,
 } from 'lucide-react';
 
 // Navigation Menu Items
@@ -26,14 +29,18 @@ export const SIDEBAR_ITEMS = {
   admin: [
     { label: 'Dashboard', href: '/dashboard/admin', icon: LayoutDashboard },
     { label: 'Universities', href: '/dashboard/admin/universities', icon: GraduationCap },
-    { label: 'Students', href: '/dashboard/admin/students', icon: Users },
     { label: 'Users', href: '/dashboard/admin/users', icon: Users },
     { label: 'Diplomas', href: '/dashboard/admin/diplomas', icon: FileText },
   ],
   university: [
     { label: 'Dashboard', href: '/dashboard/university', icon: LayoutDashboard },
-    { label: 'Students', href: '/dashboard/university/students', icon: Users },
+    { label: 'Studies', href: '/dashboard/university/studies', icon: BookOpen },
     { label: 'Diplomas', href: '/dashboard/university/diplomas', icon: FileText },
+  ],
+  student: [
+    { label: 'Dashboard', href: '/dashboard/student', icon: LayoutDashboard },
+    { label: 'Study Information', href: '/dashboard/student/study', icon: BookOpen },
+    { label: 'Verification OTP', href: '/dashboard/student/verify-otp', icon: ShieldCheck },
   ],
 };
 

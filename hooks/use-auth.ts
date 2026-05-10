@@ -46,8 +46,6 @@ export function useAuth() {
 
         const data = await res.json();
 
-        console.log(data);
-
         if (!res.ok) {
           return {
             success: false,
@@ -65,7 +63,7 @@ export function useAuth() {
 
         setAuthState({
           isAuthenticated: true,
-          user,
+          user: user,
           role: user.role,
           walletConnected: false,
         });
@@ -96,7 +94,50 @@ export function useAuth() {
           };
         }
 
-        return { success: true };
+        return { 
+          success: true, 
+          private_key: data.private_key 
+        };
+        
+      } catch (error) {
+        return { success: false, error: 'Network error' };
+      }
+    },
+    []
+  );
+
+  const registerStudent = useCallback(
+    async (formData: {
+      name: string;
+      email: string;
+      password: string;
+      ktp_number: string;
+      phone_number: string;
+      place_and_date_of_birth: string;
+    }) => {
+      try {
+        const res = await fetch(`${API_URL}/siakadBlockchain/api/students/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          return {
+            success: false,
+            error: data.detail?.message || 'Student registration failed',
+          };
+        }
+
+        return {
+          success: true,
+          data: data.data,
+          studentId: data.data.id,
+          privateKey: data.private_key,
+          instruction: data.private_key_instruction
+        };
       } catch (error) {
         return { success: false, error: 'Network error' };
       }
@@ -131,45 +172,6 @@ export function useAuth() {
     }
   }, []);
 
-  const connectWallet = useCallback(async (): Promise<{
-    success: boolean;
-    address?: string;
-    error?: string;
-  }> => {
-    try {
-      const mockAddress = `0x${Math.random().toString(16).slice(2).padEnd(40, '0')}`;
-
-      setAuthState((prev) => {
-        const updatedState = {
-          ...prev,
-          walletConnected: true,
-          user: prev.user
-            ? { ...prev.user, walletAddress: mockAddress }
-            : null,
-        };
-
-        if (updatedState.user) {
-          localStorage.setItem(
-            STORAGE_KEY,
-            JSON.stringify({
-              user: updatedState.user,
-              role: updatedState.role,
-            })
-          );
-        }
-
-        return updatedState;
-      });
-
-      return { success: true, address: mockAddress };
-    } catch (error) {
-      return {
-        success: false,
-        error: 'Failed to connect wallet. Make sure MetaMask is installed.',
-      };
-    }
-  }, []);
-
   const logout = useCallback(() => {
     setAuthState({
       isAuthenticated: false,
@@ -181,16 +183,16 @@ export function useAuth() {
   }, []);
 
   const universityId =
-  authState.role === 'university'
-    ? authState.user?.university_id ?? null
-    : null;
+    authState.role === 'university'
+      ? authState.user?.university_id ?? null
+      : null;
 
   return {
     ...authState,
     loading,
     login,
     register,
-    connectWallet,
+    registerStudent,
     logout,
     getUniversities,
     universityId,

@@ -16,7 +16,8 @@ export function AppNavbar() {
 
   const navItems = [
     { label: 'Home', href: '/', icon: Shield },
-    { label: 'Search', href: '/search', icon: Search }
+    { label: 'Search', href: '/search', icon: Search },
+    { label: 'Verify', href: '/verify', icon: CheckCircle },
   ];
 
   return (

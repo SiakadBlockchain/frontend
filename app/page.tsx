@@ -44,9 +44,15 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/search"
-                className="px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-accent transition-all duration-200 ease-out"
+                className="px-6 py-3 border bg-primary text-primary-foreground rounded-md font-medium hover:bg-accent hover:text-primary hover:border-primary transition-all duration-200 ease-out"
               >
                 Search Diploma
+              </Link>
+              <Link
+                href="/verify"
+                className="px-6 py-3 bg-white border border-primary text-primary rounded-md font-medium hover:bg-primary hover:text-white transition-all duration-200 ease-out"
+              >
+                Verify Diploma
               </Link>
             </div>
           </div>
