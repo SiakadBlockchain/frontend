@@ -3,7 +3,7 @@ import axios from 'axios';
 const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_API;
 
 const api = axios.create({
-  baseURL: `${BASE_URL}/siakadBlockchain/api`,
+  baseURL: `${BASE_URL}/siakadBlockchain/api/`,
   headers: {
     'Content-Type': 'application/json',
   },
