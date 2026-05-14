@@ -46,8 +46,11 @@ export default function ValidatorDashboard() {
       
       const pendingCount = data.filter((t: any) => t.status === 'pending').length;
       const successCount = data.filter((t: any) => t.status === 'success').length;
-      const latestBlockTx = data.find((t: any) => t.status === 'success' && t.block_number);
-      const latestBlock = latestBlockTx ? latestBlockTx.block_number : '0';
+      
+      const successBlocks = data
+        .filter((t: any) => t.status === 'success' && t.block_number != null)
+        .map((t: any) => Number(t.block_number));
+      const latestBlock = successBlocks.length > 0 ? Math.max(...successBlocks) : '0';
 
       setStats({
         totalBlocks: latestBlock.toString(),
@@ -89,7 +92,10 @@ export default function ValidatorDashboard() {
     }
   }
 
-  const confirmedTransactions = transactions.filter(t => t.status === 'success');
+  const confirmedTransactions = transactions
+    .filter(t => t.status === 'success')
+    .sort((a, b) => Number(b.block_number || 0) - Number(a.block_number || 0));
+
   const pendingTransactions = transactions.filter(t => t.status === 'pending').slice(0, 5);
 
   return (
