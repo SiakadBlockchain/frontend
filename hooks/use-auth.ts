@@ -116,7 +116,7 @@ export function useAuth() {
       place_and_date_of_birth: string;
     }) => {
       try {
-        const res = await fetch(`${API_URL}/siakadBlockchain/api/students/`, {
+        const res = await fetch(`${API_URL}/siakadBlockchain/api/students`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData),
