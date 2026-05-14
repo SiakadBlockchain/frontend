@@ -111,7 +111,7 @@ export const fetchDiplomasByUniversity = async (
 };
 
 export const createDiploma = async (formData: FormData) => {
-  const res = await api.post('/diplomas/', formData, {
+  const res = await api.post('/diplomas', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
