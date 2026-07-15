@@ -27,7 +27,7 @@ export function AppSidebar() {
     <aside className="w-64 bg-background border-r border-border flex flex-col h-screen">
       {/* Logo/Header */}
       <div className="p-6 border-b border-border">
-        <h1 className="text-2xl font-bold text-foreground">SiakadChain</h1>
+        <h1 className="text-2xl font-bold text-foreground">AcademicChain</h1>
         <p className="text-xs text-muted-foreground mt-1">Blockchain Academic System</p>
       </div>
 

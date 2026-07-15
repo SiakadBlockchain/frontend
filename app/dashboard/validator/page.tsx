@@ -150,6 +150,7 @@ export default function ValidatorDashboard() {
                     <button 
                       onClick={() => handleQuickApprove(tx.id)}
                       className="p-2 border border-border rounded-md hover:bg-primary hover:text-white transition-all"
+                      id="approve-btn"
                     >
                       <ArrowRight size={14} />
                     </button>

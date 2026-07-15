@@ -26,7 +26,7 @@ export function AppNavbar() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="font-bold text-2xl text-foreground hover:text-accent transition-all duration-200 ease-out">
-            SiakadChain
+            AcademicChain
           </Link>
 
           {/* Nav Items */}

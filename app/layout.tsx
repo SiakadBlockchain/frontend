@@ -7,7 +7,7 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'SiakadChain - Blockchain Academic Credentials',
+  title: 'AcademicChain - Blockchain Academic Credentials',
   description: 'A secure blockchain-based system for managing and verifying academic credentials',
   generator: 'v0.app',
   icons: {

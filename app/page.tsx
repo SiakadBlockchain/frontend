@@ -36,7 +36,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 py-16">
           <div className="text-center">
             <h1 className="text-5xl font-bold text-foreground mb-4">
-              SiakadChain
+              AcademicChain
             </h1>
             <p className="text-xl text-muted-foreground mb-6">
               Blockchain System for Secure and Transparent Academic Diploma Verification
@@ -62,7 +62,7 @@ export default function Home() {
       <section className="border-b border-border">
         <div className="max-w-7xl mx-auto px-4 py-16">
           <h2 className="text-3xl font-bold text-foreground text-center mb-12">
-            Why SiakadChain?
+            Why AcademicChain?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => {
@@ -129,7 +129,7 @@ export default function Home() {
             Ready to Verify Your Diploma?
           </h2>
           <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Use the secure and trusted SiakadChain system to verify your academic credentials in seconds.
+            Use the secure and trusted AcademicChain system to verify your academic credentials in seconds.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

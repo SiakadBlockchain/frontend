@@ -124,7 +124,7 @@ export function AuthForms({ initialTab = 'login' }: AuthFormsProps) {
 
       <div className="w-full max-w-md">
         <div className="mb-10 text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">SiakadChain</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">AcademicChain</h1>
           <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mt-2">
             Blockchain Academic Credential System
           </p>

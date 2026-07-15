@@ -129,4 +129,4 @@ export const ROLE_NAMES = {
 // Demo Data Defaults
 export const DEFAULT_COUNTRY = 'Indonesia';
 export const DEFAULT_CURRENCY = 'IDR';
-export const SYSTEM_NAME = 'SiakadChain';
+export const SYSTEM_NAME = 'AcademicChain';
